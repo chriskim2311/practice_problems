@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+const numbers = [5, 3, 9, 11, 133, 3];
+var newArray = [];
+
+
+function every() {
+  for(var i = 0; i < numbers.length; i++) {
+    var number = numbers[i]
+    isOdd(number)
+    console.log(newArray)
+  }
+    if(newArray.length == numbers.length) {
+    return true;
+  }
+    else{
+   return false;
+  }
+}
+function isOdd(number){
+    if(number % 2 === 1){
+      newArray.push(number)
+    }
+
+
+  
+  
+  
+  
+}
+
+// const numbersAllOdd = every(numbers);
+
+// console.log(numbersAllOdd); // logs true
+
+numbers.push(12);
+const numbersAllOdd2 = every(numbers);
+console.log(numbersAllOdd2); // logs false
+</script>
+
+
+</body>
+</html>
+
