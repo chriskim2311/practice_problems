@@ -1,38 +1,35 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>JS Bin</title>
 </head>
+
 <body>
-<script type="text/javascript">
-var newArray = [];
+  <script type="text/javascript">
+    var newArray = [];
 
-function filter(list, test){
-    for(var i = 0; i < numbers.length; i++) {
-      var number = numbers[i];     
-      if(isOdd(number)== true){ 
-    newArray.push(number);
+    function filter(list, test) {
+      for (var i = 0; i < numbers.length; i++) {
+        var number = numbers[i];
+        if (isOdd(number) == true) {
+          newArray.push(number);
+        }
       }
-}
-return newArray
+      return newArray
+    } //tests const 
+    numbers = [5, 3, 4, 9, 82, 11, 133, 3];
 
-}
-//tests
-
-const numbers = [5, 3, 4, 9, 82, 11, 133, 3];
-function isOdd(number){
-    return number % 2 === 1;
-}
-
-const oddNumbers = filter(numbers, isOdd);
-console.log(oddNumbers); // logs [5, 3, 9, 11, 133, 3]
-
-</script>
+    function isOdd(number) {
+      return number % 2 === 1;
+    }
+    const oddNumbers = filter(numbers, isOdd);
+    console.log(oddNumbers); // logs [5, 3, 9, 11, 133, 3]
+  </script>
 
 
 </body>
-</html>
 
+</html>

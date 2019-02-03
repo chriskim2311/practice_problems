@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<script>
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7hQZInXf3Y5U9UMI_K5bmxfNiUro1cls"
+</script>
+  <body>
+<script type="text/javascript">
+ var geocoder = new google.maps.Geocoder();
+
+        var address = "irivne, ca"
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            console.log(results)
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+
+</script>
+
+
+</body>
+</html>
+
