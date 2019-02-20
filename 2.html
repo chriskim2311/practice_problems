@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+
+
+var maxProfit = function(prices) {
+
+
+var prices = [5, 6, 2, 4, 8, 9, 5, 1, 5];
+
+var answer = 0;
+if(prices.length == 0) {
+    return answer
+}
+
+
+const firstBought = prices[0];
+
+for(let i =1; i < prices.length; i++) {
+    if(firstBought < prices[i]) {
+        if(answer < (prices[i] - bought)){
+            answer = prices[i]-bought;
+        }
+
+    }
+    else{
+        firstBought=prices[i]
+    }
+
+}
+return answer
+
+}
+
+
+</script>
+
+
+</body>
+</html>
+
