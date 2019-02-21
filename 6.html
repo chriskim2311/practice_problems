@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+var nums = [-1, 0, 1, 2, -1, -4]
+var threeSum = function(nums) {
+nums.sort((a,b)=> a-b)
+const result = [];
+for(let i = 0; i <nums.length-2; i++) {
+    const a = nums[i];
+    if(a > 0) {
+        return result;
+    }
+    if(a === nums[a-1]) {
+        continue
+    }
+    let j = i +1
+    let r = nums.length -1
+
+
+    while(j < r) {
+        const b = nums[j]
+        const c = nums[r];
+
+        if((a + b + c) === 0) {
+            result.push([a,b,c])
+        }
+        
+        if((a+b+c) >= 0) {
+            while(nums[r-1] === c) {
+                r--;
+            }
+            r--;
+        }
+        if((a + b+ c) <= 0 ) {
+            while (nums[j+1] === b) {
+                j++
+            }
+            j++
+        }
+
+
+    }
+
+
+
+}
+return result
+};
+
+threeSum(nums)
+    
+
+
+
+</script>
+
+
+</body>
+</html>
+
