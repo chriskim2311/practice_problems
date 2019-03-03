@@ -8,54 +8,44 @@
 </head>
 <body>
 <script type="text/javascript">
-/* Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
-
-An input string is valid if:
-
-Open brackets must be closed by the same type of brackets.
-Open brackets must be closed in the correct order.
-Note that an empty string is also considered valid.
-*/
-
-var isValid = function(s) {
-  let arr = [];
-  
-  const bracketMapping = {
-    '{': '}',
-    '[': ']',
-    '(': ')'
+/**
+ * Scan through both strings's at the same time, when a difference is
+ * encountered:
+ *   * if this is the first edit:
+ *     * if strings are the same length then consider it a replacement
+ *     * if strings are different lengths then consider it a delete from the longer string
+ *   * if this is the second edit then return false
+ *
+ * N = max(|str1|, |str2|)
+ * Time: O(N)
+ * Additional space: O(1)
+ *
+ * @param  {string}  str1 The first string
+ * @param  {string}  str2 The second string
+ * @return {boolean}      True if strings are 0 or 1 edit apart, otherwise false
+ */
+function isOneAway() {
+  if(Math.abs(str1.length - str2.legnth) > 1) {
+    return false
   }
-  
-  const openBrackets = Object.keys(bracketMapping);
-  
-  // Add open brackets to an array, and remove them once we come across
-  // a matching closed brackets. (LILO order)
-  for (let i = 0; i < s.length; i++) {
-    if (openBrackets.includes(s[i])) {
-      arr.push(s[i]);
-    } else {
-      
-      // Last open bracket seen matches the current closing bracket.
-      // Remove the last seen bracket from the array, since it has been properly closed out.
-      const lastOpenBracket = arr[arr.length - 1];
-      if (bracketMapping[lastOpenBracket] === s[i]) {
-        arr.splice(arr.length - 1, 1);
-      } else {
-        return false;
+  let isEdited = false
+  for(let i=0, j=0; i <str1.length && j <str2.length; i++, j++) {
+    if(str1[i] !== str2[j] ) {
+      if(isEdited) {
+        return false
       }
+      if(str1.length > str2.length) {
+        j--
+      }
+      else if(str1.length < str2.length) {
+        i--
+      }
+
+      isEdited= true
     }
   }
-  
-  // If we have an empty array, all opening brackets have been properly 'popped'
-  // out of the array.
-  return !arr.length;
-};
-
-
-
-
-
-
+  return true
+}
 </script>
 
 
