@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+
+//Space and Time: O(n) 
+//Go through characters in string and set flag to indicate if there is an
+//odd number of that character. If there is more than one character with an
+//odd number of occurences then it cannot be a palindrome.
+
+function palPerm() {
+  if(!str) {
+  return false
+}
+
+  let chars = new Set();
+
+  for(let char of str) {
+    if(char !== ' ') {
+      if(chars.has(char)) {
+        chars.delete(char)
+      } else {
+        chars.add(char)
+      }
+    }
+  }
+  return chars.length <= 1
+  }
+
+
+
+</script>
+
+
+</body>
+</html>
+
