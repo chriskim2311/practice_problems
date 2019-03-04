@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+var strComp =(str)=> {
+  let currChar = str[0];
+  let counter = 0;
+  let compressed = ''
+
+
+  for(let i = 0; i < str.length; i++) {
+    if(currChar !== str[i]){
+      compressed += currChar + counter
+      counter =1
+      currChar = str[i]
+    } else {
+      counter++
+    }
+  }
+  compressed += currChar + counter;
+
+  if(str.length < compressed.length) {
+    return str
+  } else {
+    return compressed
+  }
+  }
+
+console.log('aabcccccaaa', strComp('aabcccccaaa'), 'a2b1c5a3');
+</script>
+
+
+</body>
+</html>
+
