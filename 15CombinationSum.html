@@ -12,6 +12,7 @@
 
 
 var combinationSum = function(candidates, target) {
+  candidates.sort((a, b) => a - b);
   let results = []
 
   function dfs(candidates, tempArr, target, start) {
