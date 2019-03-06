@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+// Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+
+
+var combinationSum = function(candidates, target) {
+  let results = []
+
+  function dfs(candidates, tempArr, target, start) {
+    if(target < 0) {
+      return
+    } else if(target == 0) {
+      results.push(tempArr.slice())
+    } else {
+      for(let i = start; i < candidates.length; i++) {
+        tempArr.push(candidates[i])
+        dfs(candidates, tempArr, target-candidates[i], i)
+        tempArr.pop()
+      }
+    }
+
+}
+
+dfs(candidates, [], target, 0)
+return results
+
+
+
+
+
+}
+
+
+
+console.log(combinationSum([2,3,6,7], 7))
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
+
