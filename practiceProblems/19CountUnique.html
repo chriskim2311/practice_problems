@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+function countUniqueValues(arr) {
+    if(arr.length < 1) {
+    return 0
+}
+  let count = 1
+  let first = 0
+  let second = 1
+
+while(second < arr.length) {
+  if(arr[first] == arr[second]) {
+      console.log(second)
+    second++
+  } else {
+      console.log("NUMBER",count)
+    count++
+    first = second
+    second++
+  }
+
+}
+return count
+
+}
+
+countUniqueValues(1,2,3,4,4,4,7,7,12,12,13)
+
+
+</script>
+
+
+</body>
+</html>
+
