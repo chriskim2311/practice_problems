@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+function sumZero(arr) {
+  let left = 0
+  let right = arr.length -1
+
+  while(left < right) {
+    let sum = arr[left] + arr[right]
+    if(sum === 0) {
+      return [arr[left], arr[right]]
+    } else if(sum > 0) {
+      right--
+    } else {
+      left++
+    }
+  }
+}
+
+
+sumZero([-3,0,1,2,3])
+
+</script>
+
+
+</body>
+</html>
+
