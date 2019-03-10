@@ -13,7 +13,7 @@ let start = 0
 let end = arr.length -1
 let mid = Math.floor((start+end) / 2)
 
-while(arr[mid] !== element) {
+while(arr[mid] !== element && start <= end ) {
   if(element < arr[mid]) {
     end = mid - 1
   } else {
@@ -22,8 +22,11 @@ while(arr[mid] !== element) {
 
   mid = Math.floor((start+end) / 2)
 }
-
-return mid
+if(arr[middle] == element){
+  return mid
+} else{
+  return -1
+}
 
 }
 
