@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+
+function DFSInOrder() {
+  let data = [];
+  function traverse(node) {
+    if(node.left) traverse(node.left)
+    data.push(node.value)
+    if(node.right) traverse(node.right)
+
+    
+
+  }
+  traverse(this.root)
+  return data
+
+}
+
+</script>
+
+
+</body>
+</html>
+
