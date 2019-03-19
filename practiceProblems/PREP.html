@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<script type="text/javascript">
+
+
+/*
+First we will use a queue to store different substrings of the original
+-Make a set to store strings we have already visited
+- helper function to check valid parenthesis
+-loop through string creating substrings and
+ pushing substrings into queue and 
+ checking valid parenthesis if true we can push into result array
+-O(N) run time O(N) Space
+*/ 
+var removeInvalidParentheses = function(s) {
+    
+    let result = [],
+        visited = new Set(),
+        queue = [],
+        found = false;
+    
+    if (!s){
+        result.push("") /// Inorder to pass the leetcode test case. So wierd, it is expecting[""] instead of []
+        return result1
+    }
+    queue.push(s);
+    visited.add(s)
+    
+    
+    while (queue.length != 0){
+        let s = queue.shift();
+        if (isValid(s)){
+            found = true
+            result.push(s)
+        }
+        if (found){
+            continue;
+        }
+        for(let i=0; i<s.length; i++){
+            if (s[i] != '(' && s[i] != ')'){
+                continue;
+            }
+            let t = s.substring(0,i) + s.substring(i+1);
+            if (!visited.has(t)){
+                queue.push(t);
+                visited.add(t);
+            }
+        }
+    }
+    return result
+};
+
+
+// check for the valid paranthesis
+function isValid(s){
+    let count = 0;
+    for(let i=0; i<s.length;i++){
+        if (s[i] != '(' && s[i] != ')'){
+                continue;
+        }
+        if (s[i] == '('){
+            count++;
+        } else if (s[i] == ')'){
+            count--;
+        }
+        if (count < 0){
+            return false
+        }
+    }
+    return count == 0;
+}
+
+
+/*
+-Utilize a carry to save value that needs to be carried over to next digit
+- start at end since we add right to left and use a while loop to go thru both binary strings
+- In the loop we will add to the carry then add to result in the proper order
+- remove fractions after
+*/
+
+var addBinary = function(a, b) {
+    var result = "";
+    var i = a.length - 1;
+    var j = b.length - 1;
+    var carry = 0;
+    while (i >= 0 || j >= 0 || carry > 0) { // go thru length of both strings and until no more carry
+        carry += i >= 0 ? parseInt(a[i--]) : 0; //concat value to carry
+        carry += j >= 0 ? parseInt(b[j--]) : 0;  //concat value to carry
+        result = carry % 2 + result; // concat string
+        carry = parseInt(carry / 2); //remove fractionals
+    }
+    return result;
+};
+
+
+/*
+- create map to store key value pairs
+- inititate sum and total
+- use a for of loop to go thru nums and add up values to see if total is zero
+- if not in map set new key value pair with sum and value +1
+- O(N)- time and space
+
+*/
+var subarraySum = function(nums, k) {
+    const map = new Map([[0, 1]]);
+    let sum = 0;
+    let total = 0;
+    for (let num of nums) {
+        sum = sum + num;
+        total += (map.get(sum - k) || 0);
+        map.set(sum, (map.get(sum) || 0) + 1);
+    }
+    
+    return total;
+};
+
+
+/*
+-create a last nonzero variable and set to zero
+- go thru entire array and check for values not equal to zero
+- if not equal to zero set temp value to indexed value, 
+-then change that value to zero and 
+-set the temp value to nums at index lastnonzero and increment lastnonzero
+- this will set all non zeros at the beginning and leave zeros in place pushing them to back one by one
+*/
+
+var moveZeroes = function(nums) {
+    let lastNonZero = 0;
+    for(let i = 0; i < nums.length; ++i){
+        if(nums[i] != 0){
+            const tmp = nums[i];
+            nums[i] = 0;
+            nums[lastNonZero++] = tmp;
+        }
+    }
+};
+/*
+SERIALIZE
+-use a DFS using recursion that will save values into a result array.
+- base case would be no root add a marker of "#"
+- else would be to push value to result array and call dfs on both left and right of the node.
+-return result array,join to make it a string
+
+DESERIALIZE
+- edge case no string return null
+- make a new array dataArray and split string
+-create helper function decoder that will be called recursively
+- base case if index greater than array length or
+dataArray index equals marker we will return null and increment index
+-after this we set a new node to new TreeNode class at dataArray index
+- call decode helper function as node.left and node.right with index.
+-after return node and index
+- inititate result and dx and start decode at index zero
+- return result
+*/
+
+
+
+var serialize = function(root) {
+      let result = [];
+    var dfs = root => {
+        if (!root) {
+            result.push('#');
+        } else {
+            result.push(root.val);
+            dfs(root.left);
+            dfs(root.right);
+        }
+    };
+    dfs(root);
+    console.log(result)
+    return result.join(' ');
+    
+};
+var deserialize = function(data) {
+    if (!data) return null;
+    let dataArr = data.split(' ');
+
+    var decode = (idx) => {
+        if (idx >= dataArr.length || dataArr[idx] == '#') {
+            return [null, idx+1];
+        }
+        let node = new TreeNode(dataArr[idx++]);
+        [node.left, idx] = decode(idx);
+        [node.right, idx] = decode(idx);
+        return [node, idx];
+    };
+    
+    let [result, idx ] = decode(0);
+    return result;
+};
+
+/*
+-pass in string and missedChar variable flag
+-look thru array from front and from back 
+-check to see if indexed items match if not then 
+*/
+
+const validPalindrome = (str, missed = false) => {
+  for (let i = 0, j = str.length - 1; i < j; i++, j--) {
+    if (str[i] !== str[j]) {
+      if (missed) return false;
+      return validPalindrome(str.substring(i, j), true) || validPalindrome(str.substring(i + 1, j + 1), true);
+    }
+  }
+  return true;
+};
+
+/*
+-sort numbers first
+- initiate results array
+- use dfs function with numbers, tempArr, remain, start
+-  if remain less than zero return
+- base case else if remain == 0 then push tempArr.slice to results
+- else loop through numbers and push indexed numbers to tempArr
+call dfs with numbers, tempArr, remain-candiddates[i], i
+-pop off temp arr 
+- function call with candidates, empty temp arr, target, 0 index 
+-return results
+
+
+*/
+
+var combinationSum = function(candidates, target) {
+    candidates.sort((a, b) => a - b);
+    let results = []
+    
+    function dfs(candidates, tempArr,remain, start) {
+        if(remain< 0) {
+            return
+        } else if(remain == 0) {
+            results.push(tempArr.slice())
+        } else {
+            for(let i= start; i < candidates.length;i++) {
+                tempArr.push(candidates[i])
+                dfs(candidates, tempArr, remain-candidates[i], i)
+                tempArr.pop()
+            }
+        }
+    }
+    
+    
+    dfs(candidates,[], target, 0)
+    return results
+    
+};
+
+/*
+- set start and end functions. concat both and sort both
+- set rooms and end variables
+- loop thru intervals checking if start at index is less than ends index
+- if so increment rooms
+- else increment end
+-return the rooms
+*/
+
+var minMeetingRooms = function(intervals) {
+	var starts = intervals.concat().sort(function(a, b) {
+		return a.start - b.start;
+	});
+	var ends = intervals.sort(function(a, b) {
+		return a.end - b.end;
+	});
+	var rooms = 0;
+	var end = 0;
+	for (var i = 0; i < intervals.length; i++) {
+		if (starts[i].start < ends[end].end) {
+			rooms++;
+		} else {
+			end++;
+		}
+	}
+	return rooms;
+};
+
+/*
+- inititate map
+- loop thru array of nums
+- check if map.has(target - nums index)
+- if true return array of map.get(target -nums index), i
+-else set map nums indexed and i.
+
+*/
+
+var twoSum = function(nums, target) {
+    let map = new Map();
+    
+    for(let i = 0; i < nums.length; i ++) {
+        if(map.has(target - nums[i])) {
+            return [map.get(target - nums[i]), i];
+        } else {
+            map.set(nums[i], i);
+        }
+    }
+};
+
+
+const numberToWords = (num) => {
+	let belowTen = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+	let belowTwenty = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+	let belowHundred = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+	if (num === 0) return 'Zero'
+	function helper(num) {
+		let word
+		if (num < 10) {
+			word = belowTen[num] + ' '
+		}
+		else if (num < 20) {
+			word = belowTwenty[num - 10] + ' '
+		}
+		else if (num < 100) {
+			let rem = helper(num % 10)
+			word = belowHundred[(num - num % 10) / 10 - 2] + ' ' + rem
+		}
+		else if (num < 1000) {
+			word = belowTen[Math.trunc(num / 100)] + ' Hundred ' + helper(num % 100)
+		}
+		else if (num < 1000000) {
+			word = helper(parseInt(num / 1000)).trim() + ' Thousand ' + helper(num % 1000)
+		}
+		else if (num < 1000000000) {
+			word = helper(parseInt(num / 1000000)).trim() + ' Million ' + helper(num % 1000000)
+		}
+		else {
+			word = helper(parseInt(num / 1000000000)).trim() + ' Billion ' + helper(num % 1000000000)
+		}
+		return word
+	}
+	let result = helper(num) 
+	return result.trim()
+}
+
+
+
+// We only care about the task(s) with the highest frequency in order to satisfy the requirement. The rest of the space is filled by either less frequent tasks or idle slots or both. 
+// We start by pretending the rest of the space is occupied by idle slots, and the way to calculate that is: (maxFrequency - 1) * n
+// If we have more than enough other tasks to fill these idle slots, then great, we will take no. of tasks as the answer
+// One caveat is that there may be more than one task that shares this max frequency, and in which case we need to count those tasks in the last row of the chart
+
+var leastInterval = function(tasks, n) {
+    // use map to find the task(s) with the max frequency
+    let map = {};
+    tasks.forEach(task => map[task] = map[task]+1 || 1);
+    let maxFreq = 0;
+    for (task in map) {
+        maxFreq = Math.max(map[task], maxFreq);
+    }
+	// In case there are more than one task with this maxFreq, we need to add them to the last row
+    let sameMaxFreq = 0;
+    for (task in map) {
+        if (map[task] === maxFreq) {
+            sameMaxFreq++;
+        }
+    }    
+    return Math.max(tasks.length, maxFreq + n*(maxFreq - 1) + sameMaxFreq - 1)   
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+var TrieNode = function() {
+    this.children = {};
+    this.isEnd = false;
+};
+
+/**
+ * Initialize your data structure here.
+ */
+var WordDictionary = function() {
+    this.root = new TrieNode();
+};
+
+/**
+ * Adds a word into the data structure. 
+ * @param {string} word
+ * @return {void}
+ */
+WordDictionary.prototype.addWord = function(word) {
+    var current = this.root;
+    
+    for (let i = 0; i < word.length; i++) {
+        if (!(word[i] in current.children)) {
+            current.children[word[i]] = new TrieNode();
+        }
+        current = current.children[word[i]];
+    }
+    
+    current.isEnd = true;
+};
+
+/**
+ * Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. 
+ * @param {string} word
+ * @return {boolean}
+ */
+WordDictionary.prototype.search = function(word) {
+    var search = function(current, level) {
+        // Cannot search for the word
+        if (!current || (level === word.length && !current.isEnd)) {
+            return false;
+        }
+        
+        if (level === word.length && current.isEnd) {
+            return true;
+        }
+        
+        if (word[level] === '.') {
+            for (let i = 0; i < 26; i++) {
+                var ch = String.fromCharCode(97 + i);
+                
+                if (search(current.children[ch], level + 1)) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        return search(current.children[word[level]], level + 1);
+    };
+    
+    return search(this.root, 0);
+};
+</script>
+
+
+</body>
+</html>
+
