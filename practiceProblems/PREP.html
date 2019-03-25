@@ -539,6 +539,39 @@ var longestPalindrome = function(s) {
   return max;
 };
 
+//Input: J = "aA", S = "aAAbbbb"
+//Output: 3
+const numJewelsInStones = (J, S) => {
+    const jewels = new Set(J)
+    return S.split('').reduce((res, s) => res + jewels.has(s), 0)
+};
+
+var findKthLargest = function(nums, k) {
+    return nums.sort((a,b) => a-b)[nums.length-k]
+};
+var findKthLargest = function(nums, k, start = 0, end = nums.length - 1) {
+    const pivot = nums[start + Math.floor((end - start) / 2)];
+    let l = start,
+        r = end;
+    // move values >= pivot to the left, values <= pivot to the right
+    while (l <= r) {
+        while (l <= r && nums[l] > pivot) l++;
+        while (l <= r && nums[r] < pivot) r--;
+        if (l <= r) {
+            const temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
+            l++;
+            r--;
+        }
+    }
+
+    // check if kth largest element is in the left part
+    if (start + k - 1 <= r) return findKthLargest(nums, k, start, r);
+    // otherwise, check if kth largest element is in the right part
+    if (start + k - 1 >= l) return findKthLargest(nums, k - l + start, l, end);
+    return nums[r + 1];
+};
 
 
 var TrieNode = function() {
